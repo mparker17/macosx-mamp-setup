@@ -16,9 +16,8 @@
         * `log-bin` (most likely)
         * `expire_logs_days` (unlikely)
         * `max_binlog_size` (unlikely)
-    4. Ensure the MySQL server is stopped.
-    5. Edit `/Applications/MAMP/db/mysql/mysql-bin.index` and remove all lines.
-    6. In a terminal, `rm /Applications/MAMP/db/mysql/mysql-bin.0*`
+    4. Restart MySQL.
+    5. Run `PURGE BINARY LOGS;`
 3. Edit the Apache configuration:
     1. Edit `/Applications/MAMP/conf/apache/httpd.conf`, and uncomment the line that says:
 
