@@ -7,17 +7,15 @@
     * The installer will create a /Applications/MAMP folder.
     * Do not start the servers yet: configure them first.
 2. Fix MySQL:
-    1. Set up the "huge" MySQL configuration template:
+    1. Add a default MySQL config file:
 
-            cp /Applications/MAMP/Library/support-files/my-huge.cnf /Applications/MAMP/conf/my.cnf
+            $ echo "[mysqld]
+            max_allowed_packet = 1024M
+            [mysqld_safe]
+            max_allowed_packet = 1024M" | tee -a /Applications/MAMP/conf/my.cnf
 
-    2. Edit `/Applications/MAMP/conf/my.cnf`, and change the `max_allowed_packet` line to `1024M`.
-    3. If they exist, comment out lines that start with:
-        * `log-bin` (most likely)
-        * `expire_logs_days` (unlikely)
-        * `max_binlog_size` (unlikely)
-    4. Restart MySQL.
-    5. Run `PURGE BINARY LOGS;`
+    2. Restart MySQL.
+    3. Run `PURGE BINARY LOGS;`
 3. Edit the Apache configuration:
     1. Edit `/Applications/MAMP/conf/apache/httpd.conf`, and uncomment the line that says:
 
@@ -27,7 +25,7 @@
 
             <VirtualHost *:80>
               DocumentRoot "/Users/mparker17/Projects/Sites/example"
-              ServerName example.dev
+              ServerName example.localhost
               ErrorLog "logs/example.error.log"
               CustomLog "logs/example.access.log" common
               <Directory /Users/mparker17/Projects/Sites/example>
@@ -62,12 +60,7 @@
                 display_errors = On
                 display_startup_errors = On
 
-                [apc]
-                apc.enabled=1
-                apc.shm_segments=1
-                apc.shm_size=512M
-
-                [pdo_mysql]
+                [PDO]
                 pdo_mysql.default_socket = /Applications/MAMP/tmp/mysql/mysql.sock
 
                 [OPcache]
