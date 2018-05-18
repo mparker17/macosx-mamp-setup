@@ -42,9 +42,9 @@
 
                 mkdir -p /Applications/MAMP/bin/php/php5.6.10/include/php
                 cd /Applications/MAMP/bin/php/php5.6.10/include/
-                curl -fSL http://php.net/get/php-5.6.10.tar.xz/from/this/mirror -o php-5.6.10.tar.xz
-                tar -xf ./php-5.6.10.tar.xz -C php --strip-components=1
-                rm ./php-5.6.10.tar.xz
+                curl -fSL http://php.net/get/php-5.6.10.tar.xz/from/this/mirror -o php.tar.xz
+                tar -xf ./php.tar.xz -C php --strip-components=1
+                rm ./php.tar.xz
 
         2. Configure the PHP sources:
 
